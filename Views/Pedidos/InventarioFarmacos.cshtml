@@ -1,0 +1,75 @@
+﻿@model PagedList.IPagedList<EstructurasDatos_Lab03.Clases.NodoFarmacos>
+
+@{ ViewData["Title"] = "InventarioFarmacos"; }
+
+<h1>Inventario Fármacos</h1>
+
+<p>
+    <a asp-action="Index" class="btn btn-outline-dark">Regresar</a>
+</p>
+
+
+<table class="table table-striped">
+    <thead class="">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Inventario)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr class="">
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Inventario)
+            </td>
+      
+        </tr>
+}
+    </tbody>
+</table>
+
+    <div class="bg";>
+        @if (Model.HasPreviousPage)
+        {
+@Html.ActionLink("<<", "Paginacion", new { Pagina = 1 });
+@Html.Raw(" ");
+@Html.ActionLink("<Anterior", "Paginacion", new { Pagina = Model.PageNumber - 1 });
+
+}
+else
+{
+@:<<
+@Html.Raw(" ");
+@:< Anterior
+}
+        -- Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of  @Model.PageCount --
+        @if (Model.HasNextPage)
+        {
+@Html.ActionLink(" Siguiente>", "Paginacion", new { Pagina = Model.PageNumber + 1 });
+@Html.Raw(" ");
+@Html.ActionLink(">>", "Paginacion", new { Pagina = Model.PageCount });
+
+}
+else
+{
+@: Siguiente>
+@Html.Raw(" ");
+@:>>
+}
+    </div>
